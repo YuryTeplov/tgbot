@@ -2,7 +2,20 @@ import telebot
 bot = telebot.TeleBot('5737183803:AAElKWfH6Laq5xgBTsng3dKa5-ow5f_W9JM')
 import pyodbc 
 
-cnxn = pyodbc.connect("DRIVER={ODBC Driver 17 for SQL Server};SERVER={localhost,1433};DATABASE=master;UID=sa;PWD=KekLolOrbidol1347")
+driver_name = ''
+driver_names = [x for x in pyodbc.drivers() if x.endswith(' for SQL Server')]
+if driver_names:
+    driver_name = driver_names[0]
+
+print(driver_name)
+
+connection_string = 'DRIVER={' + driver_name + '};SERVER={localhost,1433};DATABASE=master;UID=sa;PWD=KekLolOrbidol1347'
+
+print(connection_string)
+
+cnxn = pyodbc.connect(connection_string)
+
+
 
 
 @bot.message_handler(content_types=['text'])
